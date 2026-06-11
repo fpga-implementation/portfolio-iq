@@ -44,19 +44,19 @@ html, body, [class*="css"] { font-family: 'Space Mono', monospace; background: #
 .block-container { padding: 1.5rem 1.5rem 4rem; max-width: 960px; }
 
 h1 { font-family: 'Syne', sans-serif !important; font-size: 22px !important; color: #f0f6ff !important; letter-spacing: -0.5px; }
-h2 { font-family: 'Syne', sans-serif !important; font-size: 14px !important; color: #3b82f6 !important; letter-spacing: 3px; text-transform: uppercase; }
-h3 { font-family: 'Syne', sans-serif !important; font-size: 14px !important; color: #93c5fd !important; letter-spacing: 2px; text-transform: uppercase; }
+h2 { font-family: 'Syne', sans-serif !important; font-size: 15px !important; color: #3b82f6 !important; letter-spacing: 3px; text-transform: uppercase; }
+h3 { font-family: 'Syne', sans-serif !important; font-size: 15px !important; color: #93c5fd !important; letter-spacing: 2px; text-transform: uppercase; }
 
 input[type="text"], input[type="number"] {
     background: #060c15 !important; border: 1px solid #1a2e48 !important;
     color: #ffffff !important; font-family: 'Space Mono', monospace !important;
-    font-size: 14px !important; font-weight: 700 !important;
+    font-size: 15px !important; font-weight: 700 !important;
 }
 input::placeholder { color: rgba(255,255,255,0.4) !important; }
 
 .stButton > button {
     background: #3b82f6 !important; color: #fff !important; border: none !important;
-    font-family: 'Syne', sans-serif !important; font-size: 14px !important;
+    font-family: 'Syne', sans-serif !important; font-size: 15px !important;
     font-weight: 700 !important; letter-spacing: 2px !important;
     text-transform: uppercase !important; width: 100% !important; padding: 0.75rem !important;
 }
@@ -70,34 +70,49 @@ input::placeholder { color: rgba(255,255,255,0.4) !important; }
 .card-red   { border-color: #dc262655; background: #150505; }
 .card-purple{ border-color: #7c3aed55; background: #0c0818; }
 
-.label   { font-size: 14px; letter-spacing: 2px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
+.label   { font-size: 15px; letter-spacing: 2px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
 .big-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #f0f6ff; }
 
-.badge-up { display:inline-block;font-size:14px;padding:2px 7px;border:1px solid #16a34a44;background:#061508;color:#4ade80;text-transform:uppercase; }
-.badge-dn { display:inline-block;font-size:14px;padding:2px 7px;border:1px solid #dc262644;background:#150505;color:#f87171;text-transform:uppercase; }
-.badge-fl { display:inline-block;font-size:14px;padding:2px 7px;border:1px solid #ca8a0444;background:#0f1208;color:#fbbf24;text-transform:uppercase; }
+.badge-up { display:inline-block;font-size:15px;padding:2px 7px;border:1px solid #16a34a44;background:#061508;color:#4ade80;text-transform:uppercase; }
+.badge-dn { display:inline-block;font-size:15px;padding:2px 7px;border:1px solid #dc262644;background:#150505;color:#f87171;text-transform:uppercase; }
+.badge-fl { display:inline-block;font-size:15px;padding:2px 7px;border:1px solid #ca8a0444;background:#0f1208;color:#fbbf24;text-transform:uppercase; }
 
 .verdict-bull { background:#061508; border:1px solid #16a34a55; padding:12px; margin-bottom:8px; }
 .verdict-bear { background:#150505; border:1px solid #dc262655; padding:12px; margin-bottom:8px; }
 .verdict-neut { background:#0f1208; border:1px solid #ca8a0455; padding:12px; margin-bottom:8px; }
-.verdict-label-bull { font-family:'Syne',sans-serif; font-size:14px; font-weight:800; color:#4ade80; }
-.verdict-label-bear { font-family:'Syne',sans-serif; font-size:14px; font-weight:800; color:#f87171; }
-.verdict-label-neut { font-family:'Syne',sans-serif; font-size:14px; font-weight:800; color:#fbbf24; }
-.verdict-tag { font-size:14px; letter-spacing:1.5px; text-transform:uppercase; opacity:0.8; }
+.verdict-label-bull { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; color:#4ade80; }
+.verdict-label-bear { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; color:#f87171; }
+.verdict-label-neut { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; color:#fbbf24; }
+.verdict-tag { font-size:15px; letter-spacing:1.5px; text-transform:uppercase; opacity:0.8; }
 .verdict-tag-bull { color:#4ade80; } .verdict-tag-bear { color:#f87171; } .verdict-tag-neut { color:#fbbf24; }
-.verdict-reason { font-size:14px; color:#e2e8f0; margin-top:3px; line-height:1.5; }
+.verdict-reason { font-size:15px; color:#e2e8f0; margin-top:3px; line-height:1.5; }
 
-.sec-hdr { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#3b82f6; padding:8px 12px; background:#0d1825; border-bottom:1px solid #111c2a; margin-bottom:0; }
-.sec-body { padding:12px; font-size:14px; line-height:1.85; color:#e2e8f0; background:#090f1a; border:1px solid #111c2a; margin-bottom:8px; }
+.sec-hdr { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#3b82f6; padding:8px 12px; background:#0d1825; border-bottom:1px solid #111c2a; margin-bottom:0; }
+.sec-body { padding:12px; font-size:15px; line-height:1.85; color:#e2e8f0; background:#090f1a; border:1px solid #111c2a; margin-bottom:8px; }
 
-.data-table { width:100%; border-collapse:collapse; font-size:14px; }
-.data-table th { text-align:left; padding:8px 11px; font-size:14px; letter-spacing:2px; color:#94a3b8; text-transform:uppercase; border-bottom:1px solid #111c2a; background:#0d1825; font-family:'Syne',sans-serif; }
-.data-table td { padding:10px 11px; border-bottom:1px solid #090f1a; vertical-align:top; color:#e2e8f0; font-size:14px; }
+.data-table { width:100%; border-collapse:collapse; font-size:15px; }
+.data-table th { text-align:left; padding:8px 11px; font-size:15px; letter-spacing:2px; color:#94a3b8; text-transform:uppercase; border-bottom:1px solid #111c2a; background:#0d1825; font-family:'Syne',sans-serif; }
+.data-table td { padding:10px 11px; border-bottom:1px solid #090f1a; vertical-align:top; color:#e2e8f0; font-size:15px; }
 .data-table tr:last-child td { border-bottom:none; }
-.sig-good { color:#4ade80; font-size:14px; } .sig-bad { color:#f87171; font-size:14px; } .sig-ok { color:#fbbf24; font-size:14px; }
+
+/* Mobile-responsive table wrapper */
+.tbl-wrap { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+/* Mobile card styles for stacked layouts */
+.mob-card { background:#090f1a; border:1px solid #1a2e48; padding:12px; margin-bottom:8px; }
+.mob-card-row { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
+.mob-card-label { font-size:15px; color:#94a3b8; min-width:90px; flex-shrink:0; }
+.mob-card-val { font-size:15px; color:#e2e8f0; font-weight:700; text-align:right; flex:1; }
+.mob-card-ticker { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:#f0f6ff; margin-bottom:8px; }
+.mob-card-full { font-size:15px; color:#e2e8f0; line-height:1.6; margin-top:6px; padding-top:6px; border-top:1px solid #111c2a; word-break:break-word; }
+
+/* Prevent news headlines and long text from overflowing on mobile */
+.sec-body { word-break:break-word; }
+.card { word-break:break-word; }
+.sig-good { color:#4ade80; font-size:15px; } .sig-bad { color:#f87171; font-size:15px; } .sig-ok { color:#fbbf24; font-size:15px; }
 
 .divider { height:1px; background:#111c2a; margin:16px 0; }
-.disc    { font-size:14px; color:#4a6a88; text-align:center; letter-spacing:1.5px; padding:20px 0; }
+.disc    { font-size:15px; color:#4a6a88; text-align:center; letter-spacing:1.5px; padding:20px 0; }
 .stExpander { border:1px solid #1a2e48 !important; background:#0a1420 !important; }
 .stExpander > div > div { background:#0d1825 !important; }
 hr { border-color: #111c2a !important; }
@@ -489,7 +504,7 @@ st.markdown("""
 <div style="display:flex;align-items:flex-end;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #111c2a">
   <div style="width:8px;height:8px;background:#3b82f6;border-radius:50%;margin-bottom:4px;box-shadow:0 0 12px #3b82f6"></div>
   <div>
-    <div style="font-size:14px;letter-spacing:4px;color:#3b82f6;text-transform:uppercase;margin-bottom:2px">Portfolio Analysis Terminal</div>
+    <div style="font-size:15px;letter-spacing:4px;color:#3b82f6;text-transform:uppercase;margin-bottom:2px">Portfolio Analysis Terminal</div>
     <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#f0f6ff">NGUYENILY X &nbsp;<span style="color:#3b82f6">—</span>&nbsp; PORTFOLIO IQ</div>
   </div>
 </div>
@@ -498,8 +513,8 @@ st.markdown("""
 # ── Guard: require API key ────────────────────────────────────────────────────
 if not api_key:
     st.markdown("""
-    <div style="background:#150505;border:1px solid #dc2626;padding:20px;color:#f87171;font-size:14px;line-height:2">
-      <div style="font-family:'Syne',sans-serif;font-size:14px;letter-spacing:2px;color:#f87171;margin-bottom:12px">⚠ API KEY NOT FOUND</div>
+    <div style="background:#150505;border:1px solid #dc2626;padding:20px;color:#f87171;font-size:15px;line-height:2">
+      <div style="font-family:'Syne',sans-serif;font-size:15px;letter-spacing:2px;color:#f87171;margin-bottom:12px">⚠ API KEY NOT FOUND</div>
       <b>To fix this:</b><br>
       1. Go to your app on <b>share.streamlit.io</b><br>
       2. Click the <b>⋮ menu → Settings → Secrets</b><br>
@@ -527,8 +542,8 @@ with st.expander("▸ MY PORTFOLIO — up to 15 holdings", expanded=True):
     if port_mode == 'import':
         st.markdown('''
         <div style="background:#090f1a;border:1px solid #1a2e48;padding:12px 14px;margin:10px 0">
-          <div style="font-size:14px;letter-spacing:2px;color:#3b82f6;text-transform:uppercase;margin-bottom:8px">📊 Google Sheets Setup</div>
-          <div style="font-size:14px;color:#94a3b8;line-height:2">
+          <div style="font-size:15px;letter-spacing:2px;color:#3b82f6;text-transform:uppercase;margin-bottom:8px">📊 Google Sheets Setup</div>
+          <div style="font-size:15px;color:#94a3b8;line-height:2">
             1. Create a sheet with columns: <b style="color:#e2e8f0">Ticker | Shares | Avg Cost</b><br>
             2. Click <b style="color:#e2e8f0">File → Share → Publish to web → CSV → Publish</b><br>
             3. Paste the URL below
@@ -615,14 +630,14 @@ with st.expander("▸ MY PORTFOLIO — up to 15 holdings", expanded=True):
     # ── Manual entry ──
     filled_count = sum(1 for h in st.session_state['holdings'] if h.get('ticker'))
     st.markdown(
-        f'<div style="font-size:14px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:12px 0 4px">'
+        f'<div style="font-size:15px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:12px 0 4px">'
         f'Holdings ({filled_count}/15 filled) — Ticker · Shares · Avg Cost</div>'
-        '<div style="font-size:14px;color:#3b82f6;margin-bottom:8px">ℹ️ All three fields required per row for analysis.</div>',
+        '<div style="font-size:15px;color:#3b82f6;margin-bottom:8px">ℹ️ All three fields required per row for analysis.</div>',
         unsafe_allow_html=True)
     for i in range(15):
         c1, c2, c3, c4 = st.columns([0.5, 2, 2, 2])
         with c1:
-            st.markdown(f'<div style="font-size:14px;color:#fff;padding-top:8px">#{i+1}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="font-size:15px;color:#fff;padding-top:8px">#{i+1}</div>', unsafe_allow_html=True)
         with c2:
             raw_tk = st.text_input(f"Tk{i}", value=st.session_state['holdings'][i].get('ticker',''),
                 placeholder="AAPL", max_chars=6, key=f"htk{i}", label_visibility="collapsed")
@@ -697,7 +712,7 @@ elif _action == 'clear':
 _stop_bg  = "#2d0a0a" if is_running else "#1a0808"
 _stop_bdr = "#f87171" if is_running else "#dc2626"
 _stop_clr = "#fca5a5" if is_running else "#f87171"
-_btn_base = ("font-family:monospace;font-size:14px;font-weight:700;letter-spacing:2px;"
+_btn_base = ("font-family:monospace;font-size:15px;font-weight:700;letter-spacing:2px;"
              "text-transform:uppercase;padding:9px 4px;width:100%;border-radius:0;"
              "display:block;text-align:center;text-decoration:none;")
 st.markdown(f"""
@@ -1330,11 +1345,11 @@ if st.session_state['result']:
                     margin-bottom:14px;display:flex;align-items:center;gap:12px">
           <div style="font-size:20px">{badge_icon}</div>
           <div>
-            <div style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;
+            <div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;
                         letter-spacing:2px;text-transform:uppercase;color:{badge_color}">
               Data Source: {esc(badge_label)}
             </div>
-            <div style="font-size:14px;color:#94a3b8;margin-top:2px">{esc(badge_desc)}</div>
+            <div style="font-size:15px;color:#94a3b8;margin-top:2px">{esc(badge_desc)}</div>
           </div>
         </div>
         """, unsafe_allow_html=True)
@@ -1389,7 +1404,7 @@ if st.session_state['result']:
                 <div class="card" style="text-align:center;padding:14px">
                   <div class="label">{esc(lbl)}</div>
                   <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:{color}">
-                    {esc(str(val))}<span style="font-size:14px;color:#5a7a99">{suffix}</span>
+                    {esc(str(val))}<span style="font-size:15px;color:#5a7a99">{suffix}</span>
                   </div>
                 </div>""", unsafe_allow_html=True)
 
@@ -1397,39 +1412,36 @@ if st.session_state['result']:
         alloc = synergy.get("sectorAllocation", [])
         if alloc:
             st.markdown('<div class="sec-hdr">◈ Sector Allocation</div>', unsafe_allow_html=True)
-            alloc_rows = ""
+            alloc_html = ''
             for a in alloc:
-                wt = esc(a.get("weight","—"))
+                wt  = esc(a.get("weight","—"))
                 tks = ", ".join(esc(t) for t in (a.get("tickers") or []))
                 ass = esc(a.get("assessment",""))
                 sec = esc(a.get("sector","—"))
                 try:
-                    wt_num = float(re.sub(r'[^0-9.]','',str(a.get("weight","0"))))
+                    wt_num  = float(re.sub(r'[^0-9.]','',str(a.get("weight","0"))))
                     bar_col = "#f87171" if wt_num > 40 else "#fbbf24" if wt_num > 25 else "#4ade80"
                     bar_w   = min(int(wt_num * 1.5), 100)
                 except: bar_col = "#fbbf24"; bar_w = 0
-                alloc_rows += f"""<tr>
-                  <td style="font-weight:700;color:#f0f6ff">{sec}</td>
-                  <td>
-                    <div style="display:flex;align-items:center;gap:8px">
-                      <div style="height:4px;width:{bar_w}px;background:{bar_col};border-radius:2px"></div>
-                      <span style="color:{bar_col};font-weight:700">{wt}</span>
-                    </div>
-                  </td>
-                  <td style="color:#94a3b8;font-size:14px">{tks}</td>
-                  <td style="color:#e2e8f0;font-size:14px">{ass}</td>
-                </tr>"""
-            st.markdown(
-                f'<table class="data-table"><thead><tr>'
-                f'<th>Sector</th><th>Weight</th><th>Tickers</th><th>Assessment</th>'
-                f'</tr></thead><tbody>{alloc_rows}</tbody></table>',
-                unsafe_allow_html=True)
+                alloc_html += (
+                    f'<div class="mob-card">'
+                    f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px">'
+                    f'<span style="font-weight:700;color:#f0f6ff;font-size:15px">{sec}</span>'
+                    f'<div style="display:flex;align-items:center;gap:8px">'
+                    f'<div style="height:4px;width:{bar_w}px;background:{bar_col};border-radius:2px"></div>'
+                    f'<span style="color:{bar_col};font-weight:700;font-size:15px">{wt}</span>'
+                    f'</div></div>'
+                    f'<div style="font-size:15px;color:#94a3b8;margin-bottom:4px">{tks}</div>'
+                    f'<div style="font-size:15px;color:#e2e8f0;line-height:1.5">{ass}</div>'
+                    f'</div>'
+                )
+            st.markdown(alloc_html, unsafe_allow_html=True)
 
         # Concentration risks
         conc_risks = synergy.get("concentrationRisks", [])
         if conc_risks:
             st.markdown('<div class="sec-hdr">◈ Concentration Risks</div>', unsafe_allow_html=True)
-            risks_html = ''.join(f'<div style="padding:5px 0;border-bottom:1px solid #111c2a;font-size:14px;color:#f87171">⚠ {esc(r)}</div>' for r in conc_risks)
+            risks_html = ''.join(f'<div style="padding:5px 0;border-bottom:1px solid #111c2a;font-size:15px;color:#f87171">⚠ {esc(r)}</div>' for r in conc_risks)
             st.markdown(f'<div class="sec-body">{risks_html}</div>', unsafe_allow_html=True)
 
         # Correlation note
@@ -1459,11 +1471,11 @@ if st.session_state['result']:
                 st.markdown(f"""
                 <div class="card {card_cls}" style="margin-bottom:8px">
                   <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap">
-                    <span style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:{lbl_col};text-transform:uppercase">{action}</span>
+                    <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:{lbl_col};text-transform:uppercase">{action}</span>
                     <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#f0f6ff">{ticker}</span>
-                    {f'<span style="font-size:14px;padding:2px 6px;border:1px solid {prio_color}44;color:{prio_color};text-transform:uppercase;letter-spacing:1px">{prio} PRIORITY</span>' if prio else ""}
+                    {f'<span style="font-size:15px;padding:2px 6px;border:1px solid {prio_color}44;color:{prio_color};text-transform:uppercase;letter-spacing:1px">{prio} PRIORITY</span>' if prio else ""}
                   </div>
-                  <div style="font-size:14px;color:#e2e8f0;line-height:1.6">{rat}</div>
+                  <div style="font-size:15px;color:#e2e8f0;line-height:1.6">{rat}</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -1481,9 +1493,9 @@ if st.session_state['result']:
                     st.markdown(f"""
                     <div class="card card-green" style="padding:14px;margin-bottom:0">
                       <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#f0f6ff">{tk}</div>
-                      <div style="font-size:14px;color:#94a3b8;margin-bottom:8px">{name}</div>
-                      <div style="font-size:14px;color:#e2e8f0;line-height:1.7;margin-bottom:6px">{rat}</div>
-                      {f'<div style="font-size:14px;color:#4ade80;letter-spacing:1px">Suggested allocation: {alloc_pct}</div>' if alloc_pct else ""}
+                      <div style="font-size:15px;color:#94a3b8;margin-bottom:8px">{name}</div>
+                      <div style="font-size:15px;color:#e2e8f0;line-height:1.7;margin-bottom:6px">{rat}</div>
+                      {f'<div style="font-size:15px;color:#4ade80;letter-spacing:1px">Suggested allocation: {alloc_pct}</div>' if alloc_pct else ""}
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -1498,7 +1510,7 @@ if st.session_state['result']:
                 <div class="card card-red" style="margin-bottom:8px">
                   <div style="display:flex;gap:12px;align-items:flex-start">
                     <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#f87171">{tk}</div>
-                    <div style="font-size:14px;color:#e2e8f0;line-height:1.6;padding-top:2px">{rsn}</div>
+                    <div style="font-size:15px;color:#e2e8f0;line-height:1.6;padding-top:2px">{rsn}</div>
                   </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -1519,24 +1531,32 @@ if st.session_state['result']:
         if earn_cal:
             earn_cal_sorted = sorted(earn_cal, key=lambda x: x.get('date','9999'))
             st.markdown('<div class="sec-hdr">◈ Upcoming Earnings — All Portfolio Holdings</div>', unsafe_allow_html=True)
-            earn_rows = ""
+            earn_html = ''
             for ec in earn_cal_sorted:
                 imp   = ec.get("importance","Medium")
                 imp_c = "#f87171" if imp=="High" else "#fbbf24" if imp=="Medium" else "#4ade80"
-                earn_rows += f"""<tr>
-                  <td style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#f0f6ff">{esc(ec.get("ticker",""))}</td>
-                  <td style="color:#93c5fd;font-weight:700">{esc(ec.get("date",""))}</td>
-                  <td style="color:#94a3b8">{esc(ec.get("daysUntil",""))}</td>
-                  <td style="color:#a78bfa;font-weight:700">{esc(ec.get("estimatedEPS",""))}</td>
-                  <td style="color:#94a3b8;font-size:14px">{esc(ec.get("timing",""))}</td>
-                  <td><span style="color:{imp_c};font-size:14px">● {esc(imp)}</span></td>
-                  <td style="font-size:14px;color:#e2e8f0;max-width:200px">{esc(ec.get("whatToWatch",""))}</td>
-                </tr>"""
-            st.markdown(
-                f'<table class="data-table"><thead><tr>'
-                f'<th>Ticker</th><th>Date</th><th>In</th><th>Est. EPS</th><th>Timing</th><th>Importance</th><th>Watch For</th>'
-                f'</tr></thead><tbody>{earn_rows}</tbody></table>',
-                unsafe_allow_html=True)
+                earn_html += (
+                    f'<div class="mob-card">'
+                    f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px">'
+                    f'<span class="mob-card-ticker">{esc(ec.get("ticker",""))}</span>'
+                    f'<span style="color:{imp_c};font-size:15px;font-weight:700">● {esc(imp)}</span>'
+                    f'</div>'
+                    f'<div class="mob-card-row">'
+                    f'<span class="mob-card-label">Date</span><span class="mob-card-val" style="color:#93c5fd">{esc(ec.get("date",""))}</span>'
+                    f'</div>'
+                    f'<div class="mob-card-row">'
+                    f'<span class="mob-card-label">In</span><span class="mob-card-val">{esc(ec.get("daysUntil",""))}</span>'
+                    f'</div>'
+                    f'<div class="mob-card-row">'
+                    f'<span class="mob-card-label">Est. EPS</span><span class="mob-card-val" style="color:#a78bfa">{esc(ec.get("estimatedEPS",""))}</span>'
+                    f'</div>'
+                    f'<div class="mob-card-row">'
+                    f'<span class="mob-card-label">Timing</span><span class="mob-card-val">{esc(ec.get("timing",""))}</span>'
+                    f'</div>'
+                    + (f'<div class="mob-card-full">{esc(ec.get("whatToWatch",""))}</div>' if ec.get("whatToWatch") else '')
+                    + f'</div>'
+                )
+            st.markdown(earn_html, unsafe_allow_html=True)
 
         # ── Upcoming catalysts ──
         cats = port_events.get('upcomingCatalysts', [])
@@ -1548,12 +1568,12 @@ if st.session_state['result']:
                 st.markdown(f"""
                 <div class="card card-green" style="margin-bottom:6px;padding:11px">
                   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px">
-                    <span style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#f0f6ff">{esc(cat.get("ticker",""))}</span>
-                    <span style="font-size:14px;color:#94a3b8">{esc(cat.get("date",""))}</span>
-                    <span style="font-size:14px;padding:2px 6px;border:1px solid {imp_c}44;color:{imp_c};text-transform:uppercase;letter-spacing:1px">{esc(imp)} IMPACT</span>
+                    <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#f0f6ff">{esc(cat.get("ticker",""))}</span>
+                    <span style="font-size:15px;color:#94a3b8">{esc(cat.get("date",""))}</span>
+                    <span style="font-size:15px;padding:2px 6px;border:1px solid {imp_c}44;color:{imp_c};text-transform:uppercase;letter-spacing:1px">{esc(imp)} IMPACT</span>
                   </div>
-                  <div style="font-size:14px;color:#e2e8f0;margin-bottom:3px">{esc(cat.get("event",""))}</div>
-                  <div style="font-size:14px;color:#94a3b8">{esc(cat.get("portfolioImpact",""))}</div>
+                  <div style="font-size:15px;color:#e2e8f0;margin-bottom:3px">{esc(cat.get("event",""))}</div>
+                  <div style="font-size:15px;color:#94a3b8">{esc(cat.get("portfolioImpact",""))}</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -1567,11 +1587,11 @@ if st.session_state['result']:
                 <div class="card card-red" style="margin-bottom:6px;padding:11px">
                   <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap">
                     <div style="flex:1">
-                      <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#f87171;margin-bottom:3px">{esc(re2.get("event",""))}</div>
-                      <div style="font-size:14px;color:#94a3b8;margin-bottom:2px">{esc(re2.get("date",""))}</div>
-                      <div style="font-size:14px;color:#e2e8f0">{esc(re2.get("risk",""))}</div>
+                      <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#f87171;margin-bottom:3px">{esc(re2.get("event",""))}</div>
+                      <div style="font-size:15px;color:#94a3b8;margin-bottom:2px">{esc(re2.get("date",""))}</div>
+                      <div style="font-size:15px;color:#e2e8f0">{esc(re2.get("risk",""))}</div>
                     </div>
-                    {f'<div style="font-size:14px;color:#fbbf24;white-space:nowrap">Affects: {affected}</div>' if affected else ""}
+                    {f'<div style="font-size:15px;color:#fbbf24;white-space:nowrap">Affects: {affected}</div>' if affected else ""}
                   </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -1582,7 +1602,7 @@ if st.session_state['result']:
             st.markdown('<div class="sec-hdr">◈ Latest News Headlines by Holding</div>', unsafe_allow_html=True)
             for tk_news, articles in finnhub_news_all.items():
                 if not articles: continue
-                st.markdown(f'<div style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;color:#93c5fd;text-transform:uppercase;margin:10px 0 6px">{esc(tk_news)}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;color:#93c5fd;text-transform:uppercase;margin:10px 0 6px">{esc(tk_news)}</div>', unsafe_allow_html=True)
                 for art in articles[:5]:
                     ts = art.get("datetime", 0)
                     try:    date_str = _dt.fromtimestamp(ts).strftime("%b %d, %Y") if ts else ""
@@ -1594,17 +1614,17 @@ if st.session_state['result']:
                     safe_url = url if re.match(r'^https?://', url) else ""
                     # Pre-compute all conditional HTML fragments
                     if safe_url:
-                        hl_html = f'<a href="{html_lib.escape(safe_url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><div style="font-size:14px;color:#e2e8f0;font-weight:700;line-height:1.4;margin-bottom:3px">{headline}</div></a>'
+                        hl_html = f'<a href="{html_lib.escape(safe_url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><div style="font-size:15px;color:#e2e8f0;font-weight:700;line-height:1.4;margin-bottom:3px">{headline}</div></a>'
                     else:
-                        hl_html = f'<div style="font-size:14px;color:#e2e8f0;font-weight:700;line-height:1.4;margin-bottom:3px">{headline}</div>'
-                    sum_html = f'<div style="font-size:14px;color:#94a3b8;line-height:1.5;margin-top:2px">{summary}</div>' if summary else ''
+                        hl_html = f'<div style="font-size:15px;color:#e2e8f0;font-weight:700;line-height:1.4;margin-bottom:3px">{headline}</div>'
+                    sum_html = f'<div style="font-size:15px;color:#94a3b8;line-height:1.5;margin-top:2px">{summary}</div>' if summary else ''
                     st.markdown(
                         f'<div style="background:#090f1a;border:1px solid #111c2a;border-left:3px solid #1a2e48;padding:10px 12px;margin-bottom:6px">'
                         f'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">'
                         f'<div style="flex:1">{hl_html}{sum_html}</div>'
                         f'<div style="text-align:right;min-width:80px;flex-shrink:0">'
-                        f'<div style="font-size:14px;color:#5a7a99">{esc(date_str)}</div>'
-                        f'<div style="font-size:14px;color:#3b82f6;margin-top:2px">{source}</div>'
+                        f'<div style="font-size:15px;color:#5a7a99">{esc(date_str)}</div>'
+                        f'<div style="font-size:15px;color:#3b82f6;margin-top:2px">{source}</div>'
                         f'</div></div></div>',
                         unsafe_allow_html=True)
 
@@ -1704,7 +1724,7 @@ if st.session_state['result']:
 
             # Intrinsic value method
             if pp.get("intrinsicMethod"):
-                st.markdown(f'<div style="font-size:14px;color:#5a7a99;letter-spacing:1px;margin-bottom:10px">IV Method: {esc(pp["intrinsicMethod"])}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="font-size:15px;color:#5a7a99;letter-spacing:1px;margin-bottom:10px">IV Method: {esc(pp["intrinsicMethod"])}</div>', unsafe_allow_html=True)
 
             # Verdicts
             if s.get("verdictStock"):
@@ -1724,7 +1744,7 @@ if st.session_state['result']:
                     ("recommendation","Recommendation"),
                 ]:
                     if pi.get(key):
-                        st.markdown(f'<div class="sec-body" style="margin-bottom:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">{esc(lbl)}: </span>{esc(pi[key])}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="sec-body" style="margin-bottom:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">{esc(lbl)}: </span>{esc(pi[key])}</div>', unsafe_allow_html=True)
 
             # ── IV Breakdown ──
             if s.get('ivBreakdown'):
@@ -1732,9 +1752,9 @@ if st.session_state['result']:
                 iv_rows = ""
                 for iv in s['ivBreakdown']:
                     iv_rows += f"""<tr>
-                      <td style="color:#93c5fd;font-family:'Syne',sans-serif;font-size:14px">{esc(iv.get("method",""))}</td>
-                      <td style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#a78bfa">{esc(iv.get("value",""))}</td>
-                      <td style="color:#94a3b8;font-size:14px">{esc(iv.get("desc",""))}</td>
+                      <td style="color:#93c5fd;font-family:'Syne',sans-serif;font-size:15px">{esc(iv.get("method",""))}</td>
+                      <td style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#a78bfa">{esc(iv.get("value",""))}</td>
+                      <td style="color:#94a3b8;font-size:15px">{esc(iv.get("desc",""))}</td>
                     </tr>"""
                 st.markdown(f'<table class="data-table"><thead><tr><th>Method</th><th>Value</th><th>Inputs</th></tr></thead><tbody>{iv_rows}</tbody></table>', unsafe_allow_html=True)
 
@@ -1761,7 +1781,7 @@ if st.session_state['result']:
                 st.markdown('<div class="sec-hdr">◈ Analysis</div>', unsafe_allow_html=True)
                 for key, lbl in [("valuation","📊 Valuation"),("momentum","📈 Momentum"),("sentiment","💬 Sentiment")]:
                     if sections.get(key):
-                        st.markdown(f'<div class="sec-body" style="margin-bottom:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">{esc(lbl)}: </span>{esc(sections[key])}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="sec-body" style="margin-bottom:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">{esc(lbl)}: </span>{esc(sections[key])}</div>', unsafe_allow_html=True)
 
             # ── Earnings Outlook ──
             eo = s.get('earningsOutlook', {})
@@ -1779,18 +1799,18 @@ if st.session_state['result']:
                     ("Days Until",    eo.get("daysUntilEarnings",""),"#f0f6ff"),
                 ]:
                     if val2:
-                        earn_pills += f'<div class="card" style="padding:8px 12px;flex:1;min-width:100px;margin-bottom:0"><div class="label">{esc(lbl2)}</div><div style="font-family:Syne,sans-serif;font-size:14px;font-weight:800;color:{col2}">{esc(val2)}</div></div>'
+                        earn_pills += f'<div class="card" style="padding:8px 12px;flex:1;min-width:100px;margin-bottom:0"><div class="label">{esc(lbl2)}</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:800;color:{col2}">{esc(val2)}</div></div>'
                 earn_pills += '</div>'
                 st.markdown(earn_pills, unsafe_allow_html=True)
                 imp_row  = f'<div style="display:flex;gap:8px;margin-bottom:8px">'
-                imp_row += f'<div class="card" style="padding:8px 12px;flex:1;margin-bottom:0"><div class="label">Importance</div><div style="font-family:Syne,sans-serif;font-size:14px;font-weight:800;color:{ei_col}">{esc(ei_imp)}</div></div>'
-                imp_row += f'<div class="card" style="padding:8px 12px;flex:1;margin-bottom:0"><div class="label">Price Impact Risk</div><div style="font-family:Syne,sans-serif;font-size:14px;font-weight:800;color:{pr_col}">{esc(pr_imp)}</div></div>'
+                imp_row += f'<div class="card" style="padding:8px 12px;flex:1;margin-bottom:0"><div class="label">Importance</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:800;color:{ei_col}">{esc(ei_imp)}</div></div>'
+                imp_row += f'<div class="card" style="padding:8px 12px;flex:1;margin-bottom:0"><div class="label">Price Impact Risk</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:800;color:{pr_col}">{esc(pr_imp)}</div></div>'
                 imp_row += '</div>'
                 st.markdown(imp_row, unsafe_allow_html=True)
                 if eo.get("whatToWatch"):
-                    st.markdown(f'<div class="sec-body"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">What to Watch: </span>{esc(eo["whatToWatch"])}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="sec-body"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">What to Watch: </span>{esc(eo["whatToWatch"])}</div>', unsafe_allow_html=True)
                 if eo.get("priceImpactRisk"):
-                    st.markdown(f'<div class="sec-body" style="margin-top:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">Price Move Risk: </span>{esc(eo.get("priceImpactRisk",""))} — {esc(str(eo.get("priceImpactRisk",""))+" risk on earnings print" if eo.get("priceImpactRisk") else "")}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="sec-body" style="margin-top:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">Price Move Risk: </span>{esc(eo.get("priceImpactRisk",""))} — {esc(str(eo.get("priceImpactRisk",""))+" risk on earnings print" if eo.get("priceImpactRisk") else "")}</div>', unsafe_allow_html=True)
 
             # ── News & Events ──
             ne = s.get('newsAndEvents', {})
@@ -1806,8 +1826,8 @@ if st.session_state['result']:
                 st.markdown(f"""
                 <div style="display:flex;align-items:center;gap:16px;padding:10px 12px;background:#090f1a;border:1px solid #111c2a;margin-bottom:8px">
                   <div><div class="label">News Sentiment</div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:{sent_col}">{esc(ni_sent)}</div></div>
-                  <div><div class="label">Sentiment Score</div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:{sent_col}">{ni_score}<span style="font-size:14px;color:#5a7a99">/100</span></div></div>
-                  <div><div class="label">News Impact</div><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:{sent_col}">{esc(ni_impact)}</div></div>
+                  <div><div class="label">Sentiment Score</div><div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:{sent_col}">{ni_score}<span style="font-size:15px;color:#5a7a99">/100</span></div></div>
+                  <div><div class="label">News Impact</div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:{sent_col}">{esc(ni_impact)}</div></div>
                   <div style="flex:1">
                     <div class="label" style="margin-bottom:4px">Sentiment Meter</div>
                     <div style="height:5px;background:#1a2e48;border-radius:3px">
@@ -1817,35 +1837,35 @@ if st.session_state['result']:
                 </div>
                 """, unsafe_allow_html=True)
                 if ne.get("topStory"):
-                    st.markdown(f'<div class="sec-body" style="margin-bottom:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">Top Story: </span>{esc(ne["topStory"])}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="sec-body" style="margin-bottom:4px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">Top Story: </span>{esc(ne["topStory"])}</div>', unsafe_allow_html=True)
                 if ne.get("catalysts"):
-                    st.markdown(f'<div class="sec-body" style="margin-bottom:4px;background:#060f09;border-color:#16a34a55"><span style="color:#4ade80;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">Catalysts: </span>{esc(ne["catalysts"])}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="sec-body" style="margin-bottom:4px;background:#060f09;border-color:#16a34a55"><span style="color:#4ade80;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">Catalysts: </span>{esc(ne["catalysts"])}</div>', unsafe_allow_html=True)
                 if ne.get("risks"):
-                    st.markdown(f'<div class="sec-body" style="margin-bottom:4px;background:#150505;border-color:#dc262655"><span style="color:#f87171;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">Risks: </span>{esc(ne["risks"])}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="sec-body" style="margin-bottom:4px;background:#150505;border-color:#dc262655"><span style="color:#f87171;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">Risks: </span>{esc(ne["risks"])}</div>', unsafe_allow_html=True)
                 # Key themes
                 themes = ne.get("keyThemes", [])
                 if themes:
-                    themes_html = ' '.join(f'<span style="display:inline-block;font-size:14px;padding:3px 8px;border:1px solid #1a2e48;background:#0d1825;color:#93c5fd;margin:2px">{esc(t)}</span>' for t in themes[:6])
+                    themes_html = ' '.join(f'<span style="display:inline-block;font-size:15px;padding:3px 8px;border:1px solid #1a2e48;background:#0d1825;color:#93c5fd;margin:2px">{esc(t)}</span>' for t in themes[:6])
                     st.markdown(f'<div style="margin-bottom:8px">{themes_html}</div>', unsafe_allow_html=True)
                 # Upcoming events for this stock
                 evt_list = ne.get("upcomingEvents", [])
                 if evt_list:
-                    st.markdown('<div style="font-size:14px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:8px 0 5px">Upcoming Events</div>', unsafe_allow_html=True)
+                    st.markdown('<div style="font-size:15px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:8px 0 5px">Upcoming Events</div>', unsafe_allow_html=True)
                     for evt in evt_list:
                         e_imp    = evt.get("impact","Medium")
                         e_col    = "#f87171" if e_imp=="High" else "#fbbf24" if e_imp=="Medium" else "#4ade80"
-                        note_html = f'<div style="font-size:14px;color:#94a3b8;margin-top:3px">{esc(evt.get("note",""))}</div>' if evt.get("note") else ''
+                        note_html = f'<div style="font-size:15px;color:#94a3b8;margin-top:3px">{esc(evt.get("note",""))}</div>' if evt.get("note") else ''
                         st.markdown(
                             f'<div style="background:#090f1a;border:1px solid #111c2a;border-left:3px solid {e_col};padding:8px 12px;margin-bottom:5px">'
                             f'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">'
-                            f'<span style="font-size:14px;color:#e2e8f0">{esc(evt.get("event",""))}</span>'
-                            f'<span style="font-size:14px;color:{e_col};white-space:nowrap">{esc(evt.get("date",""))}</span>'
+                            f'<span style="font-size:15px;color:#e2e8f0">{esc(evt.get("event",""))}</span>'
+                            f'<span style="font-size:15px;color:{e_col};white-space:nowrap">{esc(evt.get("date",""))}</span>'
                             f'</div>{note_html}</div>',
                             unsafe_allow_html=True)
                 # Actual Finnhub news headlines for this stock
                 tk_news_list = st.session_state.get('finnhub_news', {}).get(tk_key, [])
                 if tk_news_list:
-                    st.markdown('<div style="font-size:14px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:10px 0 5px">Recent Headlines</div>', unsafe_allow_html=True)
+                    st.markdown('<div style="font-size:15px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:10px 0 5px">Recent Headlines</div>', unsafe_allow_html=True)
                     for art in tk_news_list[:5]:
                         ts = art.get("datetime", 0)
                         try:    art_date = _dt.fromtimestamp(ts).strftime("%b %d") if ts else ""
@@ -1857,15 +1877,15 @@ if st.session_state['result']:
                         safe_url = url if re.match(r'^https?://', url) else ""
                         # Pre-compute all conditional HTML fragments
                         if safe_url:
-                            hl_html2 = f'<a href="{html_lib.escape(safe_url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><div style="font-size:14px;color:#e2e8f0;font-weight:700;line-height:1.4">{headline}</div></a>'
+                            hl_html2 = f'<a href="{html_lib.escape(safe_url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><div style="font-size:15px;color:#e2e8f0;font-weight:700;line-height:1.4">{headline}</div></a>'
                         else:
-                            hl_html2 = f'<div style="font-size:14px;color:#e2e8f0;font-weight:700;line-height:1.4">{headline}</div>'
-                        sum_html2  = f'<div style="font-size:14px;color:#94a3b8;margin-top:2px;line-height:1.5">{summary}</div>' if summary else ''
+                            hl_html2 = f'<div style="font-size:15px;color:#e2e8f0;font-weight:700;line-height:1.4">{headline}</div>'
+                        sum_html2  = f'<div style="font-size:15px;color:#94a3b8;margin-top:2px;line-height:1.5">{summary}</div>' if summary else ''
                         date_part  = f' &middot; {esc(art_date)}' if art_date else ''
                         st.markdown(
                             f'<div style="background:#090f1a;border:1px solid #111c2a;border-left:2px solid #1a2e48;padding:8px 11px;margin-bottom:5px">'
                             f'{hl_html2}{sum_html2}'
-                            f'<div style="font-size:14px;color:#5a7a99;margin-top:4px">{source}{date_part}</div>'
+                            f'<div style="font-size:15px;color:#5a7a99;margin-top:4px">{source}{date_part}</div>'
                             f'</div>',
                             unsafe_allow_html=True)
 
@@ -1873,17 +1893,27 @@ if st.session_state['result']:
             analysts = s.get('topAnalysts', [])
             if analysts:
                 st.markdown('<div class="sec-hdr">◈ Analyst Ratings</div>', unsafe_allow_html=True)
-                a_rows = ""
+                a_html = ''
                 for a in analysts:
-                    r_cls = rating_cls(a.get("rating",""))
-                    a_rows += f"""<tr>
-                      <td style="color:#e2e8f0">{esc(a.get("firm",""))}</td>
-                      <td style="color:#94a3b8">{esc(a.get("name",""))}</td>
-                      <td class="{r_cls}">{esc(a.get("rating",""))}</td>
-                      <td style="font-weight:700;color:#93c5fd">{esc(a.get("target",""))}</td>
-                      <td style="font-size:14px;color:#94a3b8">{esc(a.get("thesis",""))}</td>
-                    </tr>"""
-                st.markdown(f'<table class="data-table"><thead><tr><th>Firm</th><th>Analyst</th><th>Rating</th><th>Target</th><th>Thesis</th></tr></thead><tbody>{a_rows}</tbody></table>', unsafe_allow_html=True)
+                    r_cls  = rating_cls(a.get("rating",""))
+                    r_col  = "#4ade80" if r_cls=="sig-good" else "#f87171" if r_cls=="sig-bad" else "#fbbf24"
+                    thesis = esc(a.get("thesis",""))
+                    a_html += (
+                        f'<div class="mob-card">'
+                        f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px">'
+                        f'<span style="font-size:15px;font-weight:700;color:#e2e8f0">{esc(a.get("firm",""))}</span>'
+                        f'<span style="font-size:15px;font-weight:800;color:{r_col}">{esc(a.get("rating",""))}</span>'
+                        f'</div>'
+                        f'<div class="mob-card-row">'
+                        f'<span class="mob-card-label">Analyst</span><span class="mob-card-val" style="color:#94a3b8">{esc(a.get("name",""))}</span>'
+                        f'</div>'
+                        f'<div class="mob-card-row">'
+                        f'<span class="mob-card-label">Target</span><span class="mob-card-val" style="color:#93c5fd">{esc(a.get("target",""))}</span>'
+                        f'</div>'
+                        + (f'<div class="mob-card-full">{thesis}</div>' if thesis else '')
+                        + f'</div>'
+                    )
+                st.markdown(a_html, unsafe_allow_html=True)
 
             # ── Sector Analysis ──
             sa = s.get('sectorAnalysis', {})
@@ -1891,9 +1921,9 @@ if st.session_state['result']:
                 st.markdown('<div class="sec-hdr">◈ Sector Analysis & Peer Comparison</div>', unsafe_allow_html=True)
                 sec_html  = '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">'
                 if sa.get("sector"):
-                    sec_html += f'<div class="card" style="padding:10px 14px;flex:1;min-width:140px"><div class="label">Sector</div><div style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;color:#93c5fd">{esc(sa["sector"])}</div></div>'
+                    sec_html += f'<div class="card" style="padding:10px 14px;flex:1;min-width:140px"><div class="label">Sector</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:#93c5fd">{esc(sa["sector"])}</div></div>'
                 if sa.get("sectorRank"):
-                    sec_html += f'<div class="card" style="padding:10px 14px;flex:1;min-width:140px"><div class="label">Sector Rank</div><div style="font-family:Syne,sans-serif;font-size:14px;font-weight:700;color:#f0f6ff">{esc(sa["sectorRank"])}</div></div>'
+                    sec_html += f'<div class="card" style="padding:10px 14px;flex:1;min-width:140px"><div class="label">Sector Rank</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:#f0f6ff">{esc(sa["sectorRank"])}</div></div>'
                 sec_html += '</div>'
                 if sa.get("sectorOutlook"):
                     sec_html += f'<div class="sec-body" style="margin-bottom:10px">{esc(sa["sectorOutlook"])}</div>'
@@ -1901,24 +1931,28 @@ if st.session_state['result']:
 
                 peers = sa.get('peerComparison', [])
                 if peers:
-                    peer_rows = ""
+                    peer_html = ''
                     for p2 in peers:
-                        v2 = p2.get("verdict","")
+                        v2      = p2.get("verdict","")
                         v_color = "#4ade80" if v2 in ("Above","Premium","Inline") else "#f87171" if v2 in ("Below","Discount") else "#fbbf24"
-                        peer_rows += f"""<tr>
-                          <td style="color:#e2e8f0;font-weight:700">{esc(p2.get("peer",""))}</td>
-                          <td style="color:#94a3b8">{esc(p2.get("metric",""))}</td>
-                          <td style="color:#cbd5e1">{esc(p2.get("peerVal","—"))}</td>
-                          <td style="color:#f0f6ff;font-weight:700">{esc(p2.get("stockVal","—"))}</td>
-                          <td><span style="color:{v_color};font-size:14px">{esc(v2)}</span></td>
-                        </tr>"""
-                    st.markdown(f'<table class="data-table"><thead><tr><th>Peer</th><th>Metric</th><th>Peer</th><th>This Stock</th><th>vs Peer</th></tr></thead><tbody>{peer_rows}</tbody></table>', unsafe_allow_html=True)
+                        peer_html += (
+                            f'<div class="mob-card">'
+                            f'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px">'
+                            f'<span style="font-weight:700;color:#e2e8f0;font-size:15px">{esc(p2.get("peer",""))}</span>'
+                            f'<span style="color:{v_color};font-weight:700;font-size:15px">{esc(v2)}</span>'
+                            f'</div>'
+                            f'<div class="mob-card-row"><span class="mob-card-label">Metric</span><span class="mob-card-val" style="color:#94a3b8">{esc(p2.get("metric",""))}</span></div>'
+                            f'<div class="mob-card-row"><span class="mob-card-label">Peer</span><span class="mob-card-val" style="color:#cbd5e1">{esc(p2.get("peerVal","—"))}</span></div>'
+                            f'<div class="mob-card-row"><span class="mob-card-label">This Stock</span><span class="mob-card-val" style="color:#f0f6ff">{esc(p2.get("stockVal","—"))}</span></div>'
+                            f'</div>'
+                        )
+                    st.markdown(peer_html, unsafe_allow_html=True)
 
                 cat_html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">'
                 if sa.get("sectorCatalysts"):
-                    cat_html += f'<div class="card card-green" style="padding:11px"><div class="label">Sector Catalysts</div><div style="font-size:14px;color:#e2e8f0;line-height:1.8;margin-top:4px">{esc(sa["sectorCatalysts"])}</div></div>'
+                    cat_html += f'<div class="card card-green" style="padding:11px"><div class="label">Sector Catalysts</div><div style="font-size:15px;color:#e2e8f0;line-height:1.8;margin-top:4px">{esc(sa["sectorCatalysts"])}</div></div>'
                 if sa.get("sectorRisks"):
-                    cat_html += f'<div class="card card-red" style="padding:11px"><div class="label">Sector Risks</div><div style="font-size:14px;color:#e2e8f0;line-height:1.8;margin-top:4px">{esc(sa["sectorRisks"])}</div></div>'
+                    cat_html += f'<div class="card card-red" style="padding:11px"><div class="label">Sector Risks</div><div style="font-size:15px;color:#e2e8f0;line-height:1.8;margin-top:4px">{esc(sa["sectorRisks"])}</div></div>'
                 cat_html += '</div>'
                 st.markdown(cat_html, unsafe_allow_html=True)
 
@@ -1934,7 +1968,7 @@ if st.session_state['result']:
                 st.markdown(f"""
                 <div style="display:flex;align-items:center;gap:16px;padding:12px;background:#090f1a;border:1px solid #111c2a;margin-bottom:10px">
                   <div><div class="label">Risk Rating</div><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:{r_color}">{esc(rating)}</div></div>
-                  <div><div class="label">Risk Score</div><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:{r_color}">{risk_score}<span style="font-size:14px;color:#5a7a99">/100</span></div></div>
+                  <div><div class="label">Risk Score</div><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:{r_color}">{risk_score}<span style="font-size:15px;color:#5a7a99">/100</span></div></div>
                   <div style="flex:1">
                     <div class="label" style="margin-bottom:5px">Risk Meter</div>
                     <div style="height:6px;background:#1a2e48;border-radius:3px">
@@ -1948,22 +1982,32 @@ if st.session_state['result']:
                                    ("macroRisk","🌐 Macro"),("regulatoryRisk","⚖️ Regulatory"),
                                    ("valuationRisk","📊 Valuation")]:
                     if ra.get(rkey):
-                        st.markdown(f'<div class="sec-body" style="margin-bottom:6px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:14px;letter-spacing:1px">{esc(rlbl)}: </span>{esc(ra[rkey])}</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="sec-body" style="margin-bottom:6px"><span style="color:#3b82f6;font-family:Syne,sans-serif;font-size:15px;letter-spacing:1px">{esc(rlbl)}: </span>{esc(ra[rkey])}</div>', unsafe_allow_html=True)
 
                 key_risks = ra.get("keyRisks", [])
                 if key_risks:
-                    kr_rows = ""
+                    kr_html = ''
                     for kr in key_risks:
-                        sev = kr.get("severity","Medium"); lik = kr.get("likelihood","Medium")
-                        sc = "#f87171" if sev=="High" else "#fbbf24" if sev=="Medium" else "#4ade80"
-                        lc = "#f87171" if lik=="High" else "#fbbf24" if lik=="Medium" else "#4ade80"
-                        kr_rows += f"""<tr>
-                          <td>{esc(kr.get("risk",""))}</td>
-                          <td><span style="color:{sc};font-size:14px">● {esc(sev)}</span></td>
-                          <td><span style="color:{lc};font-size:14px">● {esc(lik)}</span></td>
-                          <td style="font-size:14px;color:#cbd5e1">{esc(kr.get("mitigation",""))}</td>
-                        </tr>"""
-                    st.markdown(f'<table class="data-table"><thead><tr><th>Risk</th><th>Severity</th><th>Likelihood</th><th>Mitigation</th></tr></thead><tbody>{kr_rows}</tbody></table>', unsafe_allow_html=True)
+                        sev = kr.get("severity","Medium")
+                        lik = kr.get("likelihood","Medium")
+                        sc  = "#f87171" if sev=="High" else "#fbbf24" if sev=="Medium" else "#4ade80"
+                        lc  = "#f87171" if lik=="High" else "#fbbf24" if lik=="Medium" else "#4ade80"
+                        mit = esc(kr.get("mitigation",""))
+                        kr_html += (
+                            f'<div class="mob-card">'
+                            f'<div style="font-size:15px;color:#e2e8f0;font-weight:700;margin-bottom:8px">{esc(kr.get("risk",""))}</div>'
+                            f'<div class="mob-card-row">'
+                            f'<span class="mob-card-label">Severity</span>'
+                            f'<span class="mob-card-val" style="color:{sc}">● {esc(sev)}</span>'
+                            f'</div>'
+                            f'<div class="mob-card-row">'
+                            f'<span class="mob-card-label">Likelihood</span>'
+                            f'<span class="mob-card-val" style="color:{lc}">● {esc(lik)}</span>'
+                            f'</div>'
+                            + (f'<div class="mob-card-full">{mit}</div>' if mit else '')
+                            + f'</div>'
+                        )
+                    st.markdown(kr_html, unsafe_allow_html=True)
 
                 if ra.get("bearCasePrice") or ra.get("bullCasePrice"):
                     bc1, bc2 = st.columns(2)
