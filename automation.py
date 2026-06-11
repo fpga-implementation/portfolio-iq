@@ -196,9 +196,23 @@ def fetch_ticker_data(h):
     future = (_dt.now() + _td(days=365)).strftime('%Y-%m-%d')
     fh_earn = finnhub_get('/calendar/earnings', {'symbol': tk, 'from': today, 'to': future})
 
-    # Recent news (last 30 days)
-    from_date = (_dt.now() - _td(days=30)).strftime('%Y-%m-%d')
-    fh_news_raw = finnhub_get('/company-news', {'symbol': tk, 'from': from_date, 'to': today})
+    # Recent news — fetch last 7 days, tag by recency bucket
+    now_ts    = _dt.now()
+    from_date = (now_ts - _td(days=7)).strftime('%Y-%m-%d')
+    to_date   = now_ts.strftime('%Y-%m-%d')
+    fh_news_raw = finnhub_get('/company-news', {'symbol': tk, 'from': from_date, 'to': to_date})
+
+    # Tag each article with a recency label
+    def recency_label(ts):
+        if not ts: return 'THIS WEEK'
+        try:
+            age_hours = (now_ts - _dt.fromtimestamp(ts)).total_seconds() / 3600
+            if age_hours <= 16:  return 'OVERNIGHT'   # since yesterday close
+            if age_hours <= 32:  return 'YESTERDAY'
+            if age_hours <= 72:  return 'LAST 3 DAYS'
+            return 'THIS WEEK'
+        except: return 'THIS WEEK'
+
     fh_news = [
         {
             'headline': str(n.get('headline', ''))[:200],
@@ -206,10 +220,15 @@ def fetch_ticker_data(h):
             'datetime': n.get('datetime', 0),
             'url':      str(n.get('url',      ''))[:300],
             'summary':  str(n.get('summary',  ''))[:300],
+            'recency':  recency_label(n.get('datetime', 0)),
         }
         for n in (fh_news_raw if isinstance(fh_news_raw, list) else [])
         if n.get('headline')
-    ][:8]
+    ]
+    # Sort by recency: overnight first, then by datetime descending
+    recency_order = {'OVERNIGHT': 0, 'YESTERDAY': 1, 'LAST 3 DAYS': 2, 'THIS WEEK': 3}
+    fh_news.sort(key=lambda x: (recency_order.get(x['recency'], 3), -(x['datetime'] or 0)))
+    fh_news = fh_news[:10]  # keep top 10 after sorting
 
     # Override FMP price with Finnhub real-time price
     if fh_quote.get('c') and fh_quote['c'] > 0:
@@ -298,16 +317,24 @@ def build_locked_context(holdings, raw_data):
             lines.append(f'  nextEarnings: {ne.get("date","N/A")} '
                          f'estEPS={ne.get("epsEstimated","N/A")} '
                          f'timing={ne.get("hour","N/A")}')
-        # News headlines
+        # News headlines — grouped by recency so Claude prioritises overnight news
         if fh_news:
-            lines.append(f'  recentNews ({len(fh_news)} articles):')
-            for i, art in enumerate(fh_news[:5]):
-                ts = art.get('datetime', 0)
-                try:    dstr = _dt.fromtimestamp(ts).strftime('%Y-%m-%d') if ts else '?'
-                except: dstr = '?'
-                lines.append(f'    {i+1}. [{dstr}] {art.get("headline","")}')
-                if art.get('summary'):
-                    lines.append(f'       {art["summary"][:200]}')
+            overnight = [a for a in fh_news if a.get('recency') == 'OVERNIGHT']
+            yesterday = [a for a in fh_news if a.get('recency') == 'YESTERDAY']
+            older     = [a for a in fh_news if a.get('recency') not in ('OVERNIGHT','YESTERDAY')]
+            lines.append(f'  recentNews ({len(fh_news)} articles, {len(overnight)} overnight):')
+            for group_label, group in [('OVERNIGHT/PRE-MARKET', overnight),
+                                        ('YESTERDAY', yesterday),
+                                        ('LAST 3-7 DAYS', older)]:
+                if not group: continue
+                lines.append(f'    [{group_label}]')
+                for i, art in enumerate(group[:4]):
+                    ts = art.get('datetime', 0)
+                    try:    dstr = _dt.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M') if ts else '?'
+                    except: dstr = '?'
+                    lines.append(f'      {i+1}. [{dstr}] {art.get("headline","")}')
+                    if art.get('summary'):
+                        lines.append(f'         {art["summary"][:200]}')
 
         locked_lines.extend(lines)
 
@@ -333,17 +360,22 @@ def run_analysis(holdings, raw_data):
 
 Portfolio ({len(holdings)} holdings, ~${port_val:,.0f}): {port_note}
 
-Your job: produce a morning briefing focused on NEWS, EVENTS, and EARNINGS that could affect these holdings TODAY and this week.
+Your job: produce a morning briefing covering TWO time horizons:
+  1. OVERNIGHT & PRE-MARKET (since yesterday 4PM EST) — highest priority, flag immediately
+  2. THIS WEEK — upcoming earnings, events, catalysts to watch
+
+News in the LOCKED DATA is tagged [OVERNIGHT/PRE-MARKET], [YESTERDAY], or [LAST 3-7 DAYS].
+Treat OVERNIGHT articles as breaking news — surface them first and rate their impact aggressively.
 
 Return ONLY valid JSON:
 {{
   "briefingDate": "{_dt.now().strftime('%Y-%m-%d')}",
-  "marketContext": "2 sentences on overall market conditions this morning",
+  "marketContext": "2 sentences on overall market conditions this morning including any overnight developments",
   "portfolioSummary": {{
     "overallSentiment": "Bullish/Neutral/Bearish",
     "keyTheme": "1 sentence on the dominant theme across the portfolio today",
     "actionRequired": true,
-    "urgentAlerts": ["alert 1 if any", "alert 2 if any"]
+    "urgentAlerts": ["OVERNIGHT: specific alert if any", "THIS WEEK: specific alert if any"]
   }},
   "earningsCalendar": [
     {{
@@ -363,12 +395,13 @@ Return ONLY valid JSON:
       "ticker": "TICKER",
       "overallSentiment": "Positive / Neutral / Negative",
       "sentimentScore": 65,
-      "topStory": "1 sentence on most important news",
+      "topStory": "1 sentence on most important news — lead with OVERNIGHT if exists",
+      "overnightSummary": "1 sentence on anything that happened since yesterday close — or 'No overnight news' if none",
       "impact": "Bullish / Neutral / Bearish",
-      "impactReason": "1 sentence explaining why",
+      "impactReason": "1 sentence explaining why — cite the specific article",
       "actionSuggestion": "Hold / Consider adding / Consider trimming / Watch closely",
       "headlines": [
-        {{"date": "YYYY-MM-DD", "headline": "...", "source": "...", "sentiment": "Positive/Neutral/Negative"}}
+        {{"date": "YYYY-MM-DD", "headline": "...", "source": "...", "sentiment": "Positive/Neutral/Negative", "recency": "Overnight/Yesterday/This week"}}
       ],
       "upcomingEvents": [
         {{"event": "...", "date": "approximate", "impact": "High/Medium/Low"}}
@@ -380,6 +413,7 @@ Return ONLY valid JSON:
       "type": "Earnings / News / Macro / Technical",
       "severity": "High / Medium / Low",
       "ticker": "TICKER or PORTFOLIO",
+      "timeframe": "Overnight / Today / This week",
       "alert": "1 sentence describing the alert",
       "action": "1 sentence recommended action"
     }}
@@ -396,7 +430,7 @@ Return ONLY valid JSON:
   "watchList": [
     {{
       "ticker": "TICKER",
-      "reason": "1 sentence on why to watch closely today",
+      "reason": "1 sentence on why to watch closely today — cite overnight news if relevant",
       "priceLevel": "$X key level to watch"
     }}
   ]
@@ -404,12 +438,13 @@ Return ONLY valid JSON:
 
 CRITICAL:
 - newsAndEvents MUST cover ALL {len(tickers)} tickers: {tickers}
-- Use actual headlines from the LOCKED DATA below — do not invent headlines
+- OVERNIGHT articles in locked data = highest priority — always surface these first
+- If a ticker has OVERNIGHT news, its urgentAlert severity must be High
+- Use actual headlines from LOCKED DATA — do not invent headlines
 - sentimentScore: 0=extremely bearish, 50=neutral, 100=extremely bullish
-- earningsCalendar: only include tickers with confirmed upcoming earnings dates
-- Flag any earnings within 7 days as High importance
-- Be specific — cite actual company names, products, dollar figures from the news
-- Today is pre-market so flag anything market-moving from overnight/pre-market
+- earningsCalendar: only tickers with confirmed upcoming earnings dates
+- Flag earnings within 7 days as High importance; earnings TODAY as Critical
+- Be specific — cite actual company names, products, dollar figures
 
 {locked_ctx}"""
 
@@ -512,13 +547,16 @@ def render_email(holdings, raw_data, analysis, run_dt):
         alerts_html += f"""
         <div style="background:{bg};border:1px solid {bd};border-left:4px solid {sc};
                     padding:12px 16px;margin-bottom:8px;border-radius:2px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:6px">
             <span style="font-weight:800;color:{sc};font-size:13px;letter-spacing:1px;text-transform:uppercase">
               {esc(alert.get('type',''))} — {esc(alert.get('ticker',''))}
             </span>
-            <span style="color:{sc};font-size:12px;border:1px solid {sc}55;padding:2px 8px">
-              {esc(sev)}
-            </span>
+            <div style="display:flex;gap:6px;align-items:center">
+              {f'<span style="color:#fbbf24;font-size:12px;border:1px solid #ca8a0455;padding:2px 6px">{esc(alert.get("timeframe",""))}</span>' if alert.get('timeframe') else ''}
+              <span style="color:{sc};font-size:12px;border:1px solid {sc}55;padding:2px 8px">
+                {esc(sev)}
+              </span>
+            </div>
           </div>
           <div style="color:#e2e8f0;font-size:15px;margin-bottom:4px">{esc(alert.get('alert',''))}</div>
           <div style="color:#94a3b8;font-size:14px">→ {esc(alert.get('action',''))}</div>
@@ -574,24 +612,54 @@ def render_email(holdings, raw_data, analysis, run_dt):
                    else '#f87171' if 'trim' in (action or '').lower()
                    else '#fbbf24')
 
+        # Build a URL lookup from raw Finnhub news for this ticker
+        tk_raw    = item.get('ticker','')
+        fh_news   = (raw_data.get(clean_ticker(tk_raw), {}) or {}).get('_fh_news', [])
+        url_map   = {}  # headline text (lowered) -> url
+        for art in fh_news:
+            h_lower = art.get('headline','').lower().strip()
+            url     = art.get('url','')
+            if h_lower and url and re.match(r'^https?://', url):
+                url_map[h_lower] = url
+
         headlines_html = ''
         for hl in (item.get('headlines') or [])[:4]:
             hl_sent  = hl.get('sentiment','Neutral')
             hl_col   = sent_color(hl_sent)
-            headlines_html += f"""
-            <div style="padding:8px 0;border-bottom:1px solid #0d1825">
-              <div style="display:flex;justify-content:space-between;gap:8px">
-                <span style="color:#e2e8f0;font-size:14px;line-height:1.5;flex:1">
-                  {esc(hl.get('headline',''))}
-                </span>
-                <span style="color:{hl_col};font-size:12px;white-space:nowrap;padding-top:2px">
-                  ● {esc(hl_sent)}
-                </span>
-              </div>
-              <div style="color:#5a7a99;font-size:13px;margin-top:2px">
-                {esc(hl.get('source',''))} · {esc(hl.get('date',''))}
-              </div>
-            </div>"""
+            hl_text  = hl.get('headline','')
+            # Try exact match first, then partial match
+            hl_url   = url_map.get(hl_text.lower().strip())
+            if not hl_url:
+                for stored_hl, stored_url in url_map.items():
+                    # Match if 60%+ of words overlap
+                    a_words = set(hl_text.lower().split())
+                    b_words = set(stored_hl.split())
+                    if a_words and b_words and len(a_words & b_words) / max(len(a_words), len(b_words)) > 0.6:
+                        hl_url = stored_url
+                        break
+            # Render as hyperlink if URL found, plain text otherwise
+            if hl_url:
+                hl_display = (
+                    f'<a href="{html_lib.escape(hl_url)}" target="_blank" rel="noopener noreferrer" '
+                    f'style="color:#93c5fd;text-decoration:none;font-size:15px;line-height:1.5;flex:1">'
+                    f'{esc(hl_text)}</a>'
+                )
+            else:
+                hl_display = f'<span style="color:#e2e8f0;font-size:15px;line-height:1.5;flex:1">{esc(hl_text)}</span>'
+
+            headlines_html += (
+                f'<div style="padding:8px 0;border-bottom:1px solid #0d1825">'
+                f'<div style="display:flex;justify-content:space-between;gap:8px">'
+                f'{hl_display}'
+                f'<span style="color:{hl_col};font-size:13px;white-space:nowrap;padding-top:2px">● {esc(hl_sent)}</span>'
+                f'</div>'
+                f'<div style="color:#5a7a99;font-size:13px;margin-top:2px">'
+                f'{esc(hl.get("source",""))}'
+                f'{" · " + esc(hl.get("date","")) if hl.get("date") else ""}'
+                f'{"&nbsp;&nbsp;<a href=" + chr(34) + html_lib.escape(hl_url) + chr(34) + " target=_blank rel=noopener style=color:#3b82f6;font-size:12px;text-decoration:none>↗ Read more</a>" if hl_url else ""}'
+                f'</div>'
+                f'</div>'
+            )
 
         events_html = ''
         for evt in (item.get('upcomingEvents') or [])[:3]:
@@ -634,6 +702,7 @@ def render_email(holdings, raw_data, analysis, run_dt):
                       padding-bottom:10px;border-bottom:1px solid #111c2a">
             {esc(item.get('topStory',''))}
           </div>
+          {f'<div style="background:#0d0b02;border:1px solid #ca8a0455;border-left:3px solid #fbbf24;padding:8px 12px;margin-bottom:10px;font-size:14px;color:#fde68a"><span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#fbbf24">⚡ Overnight: </span>{esc(item.get("overnightSummary",""))}</div>' if item.get('overnightSummary') and item.get('overnightSummary') != 'No overnight news' else ''}
           <div style="color:#94a3b8;font-size:14px;margin-bottom:10px">
             {esc(item.get('impactReason',''))}
           </div>
