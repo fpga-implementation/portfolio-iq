@@ -28,7 +28,7 @@ def clean_number(raw):
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Portfolio IQ",
+    page_title="NGUYENILY X - Portfolio IQ",
     page_icon="💼",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -490,7 +490,7 @@ st.markdown("""
   <div style="width:8px;height:8px;background:#3b82f6;border-radius:50%;margin-bottom:4px;box-shadow:0 0 12px #3b82f6"></div>
   <div>
     <div style="font-size:9px;letter-spacing:4px;color:#3b82f6;text-transform:uppercase;margin-bottom:2px">Portfolio Analysis Terminal</div>
-    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#f0f6ff">PORTFOLIO IQ</div>
+    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#f0f6ff">NGUYENILY X &nbsp;<span style="color:#3b82f6">—</span>&nbsp; PORTFOLIO IQ</div>
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -1591,24 +1591,22 @@ if st.session_state['result']:
                     source   = esc(art.get("source",""))
                     summary  = esc(art.get("summary",""))
                     url      = art.get("url","")
-                    # Only allow http/https URLs
                     safe_url = url if re.match(r'^https?://', url) else ""
-                    link_open  = f'<a href="{html_lib.escape(safe_url)}" target="_blank" style="text-decoration:none">' if safe_url else ""
-                    link_close = "</a>" if safe_url else ""
-                    st.markdown(f"""
-                    <div style="background:#090f1a;border:1px solid #111c2a;border-left:3px solid #1a2e48;padding:10px 12px;margin-bottom:6px">
-                      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
-                        <div style="flex:1">
-                          {link_open}<div style="font-size:13px;color:#e2e8f0;font-weight:700;line-height:1.4;margin-bottom:3px">{headline}</div>{link_close}
-                          {f'<div style="font-size:11px;color:#94a3b8;line-height:1.5;margin-top:2px">{summary}</div>' if summary else ""}
-                        </div>
-                        <div style="text-align:right;min-width:80px;flex-shrink:0">
-                          <div style="font-size:9px;color:#5a7a99">{date_str}</div>
-                          <div style="font-size:9px;color:#3b82f6;margin-top:2px">{source}</div>
-                        </div>
-                      </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    # Pre-compute all conditional HTML fragments
+                    if safe_url:
+                        hl_html = f'<a href="{html_lib.escape(safe_url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><div style="font-size:13px;color:#e2e8f0;font-weight:700;line-height:1.4;margin-bottom:3px">{headline}</div></a>'
+                    else:
+                        hl_html = f'<div style="font-size:13px;color:#e2e8f0;font-weight:700;line-height:1.4;margin-bottom:3px">{headline}</div>'
+                    sum_html = f'<div style="font-size:11px;color:#94a3b8;line-height:1.5;margin-top:2px">{summary}</div>' if summary else ''
+                    st.markdown(
+                        f'<div style="background:#090f1a;border:1px solid #111c2a;border-left:3px solid #1a2e48;padding:10px 12px;margin-bottom:6px">'
+                        f'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">'
+                        f'<div style="flex:1">{hl_html}{sum_html}</div>'
+                        f'<div style="text-align:right;min-width:80px;flex-shrink:0">'
+                        f'<div style="font-size:9px;color:#5a7a99">{esc(date_str)}</div>'
+                        f'<div style="font-size:9px;color:#3b82f6;margin-top:2px">{source}</div>'
+                        f'</div></div></div>',
+                        unsafe_allow_html=True)
 
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
@@ -1622,7 +1620,7 @@ if st.session_state['result']:
     for h in st.session_state['holdings']:
         if h.get('ticker'): holding_map[clean_ticker(h['ticker'])] = h
 
-    # Normalise stocks dict keys
+    # Normalise stocks dict keys (Claude output)
     clean_stocks = {}
     for k, v in stocks.items():
         tk2 = clean_ticker(k)
@@ -1630,8 +1628,27 @@ if st.session_state['result']:
             clean_stocks[tk2] = {**v, 'ticker': tk2}
     stocks = clean_stocks
 
-    for tk_key, s in stocks.items():
-        holding = holding_map.get(tk_key, {})
+    # Always iterate over the USER'S holdings — never Claude's dict
+    # This guarantees every holding appears even if Claude missed or miskeyed it
+    for h in port_holds_disp:
+        tk_key  = clean_ticker(h.get('ticker',''))
+        if not tk_key: continue
+        # Look up Claude's analysis — try exact match then case-insensitive
+        s = stocks.get(tk_key)
+        if s is None:
+            for k2 in stocks:
+                if k2.upper() == tk_key.upper():
+                    s = stocks[k2]
+                    break
+        # If Claude didn't return data for this ticker, show a minimal placeholder
+        if s is None:
+            s = {
+                'ticker':      tk_key,
+                'companyName': tk_key,
+                'currentPrice': '',
+            }
+
+        holding = holding_map.get(tk_key, h)
         cost_basis = None
         shares_held = None
         position_value_cost = None
@@ -1815,17 +1832,16 @@ if st.session_state['result']:
                 if evt_list:
                     st.markdown('<div style="font-size:8px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;margin:8px 0 5px">Upcoming Events</div>', unsafe_allow_html=True)
                     for evt in evt_list:
-                        e_imp   = evt.get("impact","Medium")
-                        e_col   = "#f87171" if e_imp=="High" else "#fbbf24" if e_imp=="Medium" else "#4ade80"
-                        st.markdown(f"""
-                        <div style="background:#090f1a;border:1px solid #111c2a;border-left:3px solid {e_col};padding:8px 12px;margin-bottom:5px">
-                          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
-                            <span style="font-size:12px;color:#e2e8f0">{esc(evt.get("event",""))}</span>
-                            <span style="font-size:9px;color:{e_col};white-space:nowrap">{esc(evt.get("date",""))}</span>
-                          </div>
-                          {f'<div style="font-size:11px;color:#94a3b8;margin-top:3px">{esc(evt.get("note",""))}</div>' if evt.get("note") else ""}
-                        </div>
-                        """, unsafe_allow_html=True)
+                        e_imp    = evt.get("impact","Medium")
+                        e_col    = "#f87171" if e_imp=="High" else "#fbbf24" if e_imp=="Medium" else "#4ade80"
+                        note_html = f'<div style="font-size:11px;color:#94a3b8;margin-top:3px">{esc(evt.get("note",""))}</div>' if evt.get("note") else ''
+                        st.markdown(
+                            f'<div style="background:#090f1a;border:1px solid #111c2a;border-left:3px solid {e_col};padding:8px 12px;margin-bottom:5px">'
+                            f'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">'
+                            f'<span style="font-size:12px;color:#e2e8f0">{esc(evt.get("event",""))}</span>'
+                            f'<span style="font-size:9px;color:{e_col};white-space:nowrap">{esc(evt.get("date",""))}</span>'
+                            f'</div>{note_html}</div>',
+                            unsafe_allow_html=True)
                 # Actual Finnhub news headlines for this stock
                 tk_news_list = st.session_state.get('finnhub_news', {}).get(tk_key, [])
                 if tk_news_list:
@@ -1839,15 +1855,19 @@ if st.session_state['result']:
                         summary  = esc(art.get("summary",""))
                         url      = art.get("url","")
                         safe_url = url if re.match(r'^https?://', url) else ""
-                        link_open  = f'<a href="{html_lib.escape(safe_url)}" target="_blank" style="text-decoration:none">' if safe_url else ""
-                        link_close = "</a>" if safe_url else ""
-                        st.markdown(f"""
-                        <div style="background:#090f1a;border:1px solid #111c2a;border-left:2px solid #1a2e48;padding:8px 11px;margin-bottom:5px">
-                          {link_open}<div style="font-size:12px;color:#e2e8f0;font-weight:700;line-height:1.4">{headline}</div>{link_close}
-                          {f'<div style="font-size:10px;color:#94a3b8;margin-top:2px;line-height:1.5">{summary}</div>' if summary else ""}
-                          <div style="font-size:9px;color:#5a7a99;margin-top:4px">{source}{" · " + art_date if art_date else ""}</div>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        # Pre-compute all conditional HTML fragments
+                        if safe_url:
+                            hl_html2 = f'<a href="{html_lib.escape(safe_url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><div style="font-size:12px;color:#e2e8f0;font-weight:700;line-height:1.4">{headline}</div></a>'
+                        else:
+                            hl_html2 = f'<div style="font-size:12px;color:#e2e8f0;font-weight:700;line-height:1.4">{headline}</div>'
+                        sum_html2  = f'<div style="font-size:10px;color:#94a3b8;margin-top:2px;line-height:1.5">{summary}</div>' if summary else ''
+                        date_part  = f' &middot; {esc(art_date)}' if art_date else ''
+                        st.markdown(
+                            f'<div style="background:#090f1a;border:1px solid #111c2a;border-left:2px solid #1a2e48;padding:8px 11px;margin-bottom:5px">'
+                            f'{hl_html2}{sum_html2}'
+                            f'<div style="font-size:9px;color:#5a7a99;margin-top:4px">{source}{date_part}</div>'
+                            f'</div>',
+                            unsafe_allow_html=True)
 
             # ── Analyst ratings ──
             analysts = s.get('topAnalysts', [])
