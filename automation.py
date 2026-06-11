@@ -574,24 +574,54 @@ def render_email(holdings, raw_data, analysis, run_dt):
                    else '#f87171' if 'trim' in (action or '').lower()
                    else '#fbbf24')
 
+        # Build a URL lookup from raw Finnhub news for this ticker
+        tk_raw    = item.get('ticker','')
+        fh_news   = (raw_data.get(clean_ticker(tk_raw), {}) or {}).get('_fh_news', [])
+        url_map   = {}  # headline text (lowered) -> url
+        for art in fh_news:
+            h_lower = art.get('headline','').lower().strip()
+            url     = art.get('url','')
+            if h_lower and url and re.match(r'^https?://', url):
+                url_map[h_lower] = url
+
         headlines_html = ''
         for hl in (item.get('headlines') or [])[:4]:
             hl_sent  = hl.get('sentiment','Neutral')
             hl_col   = sent_color(hl_sent)
-            headlines_html += f"""
-            <div style="padding:8px 0;border-bottom:1px solid #0d1825">
-              <div style="display:flex;justify-content:space-between;gap:8px">
-                <span style="color:#e2e8f0;font-size:14px;line-height:1.5;flex:1">
-                  {esc(hl.get('headline',''))}
-                </span>
-                <span style="color:{hl_col};font-size:12px;white-space:nowrap;padding-top:2px">
-                  ● {esc(hl_sent)}
-                </span>
-              </div>
-              <div style="color:#5a7a99;font-size:13px;margin-top:2px">
-                {esc(hl.get('source',''))} · {esc(hl.get('date',''))}
-              </div>
-            </div>"""
+            hl_text  = hl.get('headline','')
+            # Try exact match first, then partial match
+            hl_url   = url_map.get(hl_text.lower().strip())
+            if not hl_url:
+                for stored_hl, stored_url in url_map.items():
+                    # Match if 60%+ of words overlap
+                    a_words = set(hl_text.lower().split())
+                    b_words = set(stored_hl.split())
+                    if a_words and b_words and len(a_words & b_words) / max(len(a_words), len(b_words)) > 0.6:
+                        hl_url = stored_url
+                        break
+            # Render as hyperlink if URL found, plain text otherwise
+            if hl_url:
+                hl_display = (
+                    f'<a href="{html_lib.escape(hl_url)}" target="_blank" rel="noopener noreferrer" '
+                    f'style="color:#93c5fd;text-decoration:none;font-size:15px;line-height:1.5;flex:1">'
+                    f'{esc(hl_text)}</a>'
+                )
+            else:
+                hl_display = f'<span style="color:#e2e8f0;font-size:15px;line-height:1.5;flex:1">{esc(hl_text)}</span>'
+
+            headlines_html += (
+                f'<div style="padding:8px 0;border-bottom:1px solid #0d1825">'
+                f'<div style="display:flex;justify-content:space-between;gap:8px">'
+                f'{hl_display}'
+                f'<span style="color:{hl_col};font-size:13px;white-space:nowrap;padding-top:2px">● {esc(hl_sent)}</span>'
+                f'</div>'
+                f'<div style="color:#5a7a99;font-size:13px;margin-top:2px">'
+                f'{esc(hl.get("source",""))}'
+                f'{" · " + esc(hl.get("date","")) if hl.get("date") else ""}'
+                f'{"&nbsp;&nbsp;<a href=" + chr(34) + html_lib.escape(hl_url) + chr(34) + " target=_blank rel=noopener style=color:#3b82f6;font-size:12px;text-decoration:none>↗ Read more</a>" if hl_url else ""}'
+                f'</div>'
+                f'</div>'
+            )
 
         events_html = ''
         for evt in (item.get('upcomingEvents') or [])[:3]:
