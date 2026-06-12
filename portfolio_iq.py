@@ -800,9 +800,6 @@ analyze_clicked = st.button(
 )
 
 _current_params = {}
-_param_str = '&'.join(f'{k}={v}' for k, v in _current_params.items())
-_stop_url   = "?action=stop"
-_clear_url  = "?action=clear"
 
 _action = st.query_params.get('action','')
 if _action == 'stop':
@@ -822,26 +819,43 @@ elif _action == 'clear':
     st.query_params.clear()
     st.rerun()
 
-_stop_bg  = "#2d0a0a" if is_running else "#1a0808"
-_stop_bdr = "#f87171" if is_running else "#dc2626"
-_stop_clr = "#fca5a5" if is_running else "#f87171"
-_btn_base = ("font-family:monospace;font-size:15px;font-weight:700;letter-spacing:2px;"
-             "text-transform:uppercase;padding:9px 4px;width:100%;border-radius:0;"
-             "display:block;text-align:center;text-decoration:none;")
-st.markdown(f"""
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;margin-bottom:6px">
-  <a href="{_stop_url}" style="text-decoration:none;">
-    <div style="{_btn_base}background:{_stop_bg};border:1px solid {_stop_bdr};color:{_stop_clr};">
-      &#9632; STOP
-    </div>
-  </a>
-  <a href="{_clear_url}" style="text-decoration:none">
-    <div style="{_btn_base}background:#2d2500;border:1px solid #fbbf24;color:#fde68a;cursor:pointer">
-      &#10005; CLEAR ALL
-    </div>
-  </a>
-</div>
-""", unsafe_allow_html=True)
+# ── Stop and Clear buttons — proper Streamlit buttons (no new tab) ────────────
+_btn_col1, _btn_col2 = st.columns(2)
+with _btn_col1:
+    stop_clicked = st.button(
+        "■ STOP",
+        disabled=not is_running,
+        use_container_width=True,
+        key="btn_stop",
+        type="secondary"
+    )
+with _btn_col2:
+    clear_clicked = st.button(
+        "✕ CLEAR ALL",
+        disabled=is_running,
+        use_container_width=True,
+        key="btn_clear",
+        type="secondary"
+    )
+
+if stop_clicked:
+    st.session_state['running'] = False
+    st.session_state['stop_requested'] = True
+    st.rerun()
+
+if clear_clicked:
+    for _k in ['result','running','data_source','fmp_tickers','stop_requested','do_analyze',
+               'fmp_raw_data','fmp_locked','finnhub_prices','finnhub_sent','finnhub_news','raw_response']:
+        if _k in ('result','data_source','raw_response'): st.session_state[_k] = None
+        elif _k in ('running','stop_requested','do_analyze'): st.session_state[_k] = False
+        elif _k in ('fmp_raw_data','fmp_locked','finnhub_prices','finnhub_sent','finnhub_news'): st.session_state[_k] = {}
+        elif _k == 'fmp_tickers': st.session_state[_k] = []
+    st.session_state['holdings'] = [{'ticker':'','shares':'','cost':''} for _ in range(15)]
+    for i in range(15):
+        for f2 in ['htk','hsh','hco']:
+            if f'{f2}{i}' in st.session_state:
+                del st.session_state[f'{f2}{i}']
+    st.rerun()
 
 # ── Phase 1: arm the stop button then rerun into Phase 2 ─────────────────────
 if analyze_clicked and not st.session_state['running']:
