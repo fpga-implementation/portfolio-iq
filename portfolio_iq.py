@@ -446,6 +446,101 @@ def calc_intrinsic_value(raw_fmp):
         return (None, None, None)
 
 
+# ── Authentication ────────────────────────────────────────────────────────────
+import hashlib, base64
+
+def _verify_password(password: str, stored_hash: str) -> bool:
+    """Verify a password against a PBKDF2-SHA256 hash."""
+    try:
+        if stored_hash.startswith('pbkdf2$'):
+            _, algo, iterations, salt_b64, key_b64 = stored_hash.split('$')
+            salt  = base64.b64decode(salt_b64)
+            key   = base64.b64decode(key_b64)
+            check = hashlib.pbkdf2_hmac(algo.replace('sha','sha-').replace('sha-256','sha256'),
+                                         password.encode('utf-8'), salt, int(iterations))
+            return check == key
+    except Exception:
+        pass
+    return False
+
+def _load_users() -> dict:
+    """Load users from Streamlit Secrets. Returns {username: {name, password}}."""
+    users = {}
+    try:
+        raw = st.secrets.get('users', {})
+        for uname, udata in raw.items():
+            users[uname.lower()] = {
+                'name':     udata.get('name', uname.capitalize()),
+                'password': udata.get('password', ''),
+            }
+    except Exception:
+        pass
+    return users
+
+def _render_login():
+    """Render the login screen. Returns True if login succeeded."""
+    st.markdown("""
+    <div style="max-width:420px;margin:80px auto 0">
+      <div style="text-align:center;margin-bottom:32px">
+        <div style="font-size:15px;letter-spacing:4px;color:#3b82f6;
+                    text-transform:uppercase;margin-bottom:8px">Portfolio Analysis Terminal</div>
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#f0f6ff">
+          NGUYENILY X
+        </div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;
+                    color:#3b82f6;letter-spacing:3px;margin-top:4px">PORTFOLIO IQ</div>
+      </div>
+      <div style="background:#0d1825;border:1px solid #1a2e48;padding:28px 24px;margin-bottom:16px">
+        <div style="font-size:15px;letter-spacing:2px;color:#94a3b8;
+                    text-transform:uppercase;margin-bottom:20px">Sign In</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    with st.form("login_form", clear_on_submit=False):
+        username = st.text_input("Username", placeholder="Enter your username",
+                                  key="login_username")
+        password = st.text_input("Password", placeholder="Enter your password",
+                                  type="password", key="login_password")
+        submitted = st.form_submit_button("SIGN IN", use_container_width=True)
+
+    if submitted:
+        u = (username or '').strip().lower()
+        p = (password or '')
+        if not u or not p:
+            st.error("Please enter both username and password.")
+            return False
+        users = _load_users()
+        if u not in users:
+            st.error("Invalid username or password.")
+            return False
+        if not _verify_password(p, users[u]['password']):
+            st.error("Invalid username or password.")
+            return False
+        # Success — store in session
+        st.session_state['authenticated'] = True
+        st.session_state['auth_user']     = u
+        st.session_state['auth_name']     = users[u]['name']
+        st.rerun()
+
+    st.markdown("""
+    <div style="text-align:center;margin-top:16px;font-size:15px;color:#4a6a88">
+      Contact the app administrator to get access.
+    </div>
+    """, unsafe_allow_html=True)
+    return False
+
+# ── Gate the entire app behind login ──────────────────────────────────────────
+if 'authenticated' not in st.session_state:
+    st.session_state['authenticated'] = False
+if 'auth_user' not in st.session_state:
+    st.session_state['auth_user'] = ''
+if 'auth_name' not in st.session_state:
+    st.session_state['auth_name'] = ''
+
+if not st.session_state['authenticated']:
+    _render_login()
+    st.stop()
+
 # ── Session state helpers ─────────────────────────────────────────────────────
 def ss(key, default):
     if key not in st.session_state:
@@ -500,15 +595,33 @@ if not finnhub_key:
 if not finnhub_key: finnhub_key = os.environ.get("FINNHUB_API_KEY","")
 
 # ── Header ────────────────────────────────────────────────────────────────────
-st.markdown("""
-<div style="display:flex;align-items:flex-end;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #111c2a">
-  <div style="width:8px;height:8px;background:#3b82f6;border-radius:50%;margin-bottom:4px;box-shadow:0 0 12px #3b82f6"></div>
-  <div>
-    <div style="font-size:15px;letter-spacing:4px;color:#3b82f6;text-transform:uppercase;margin-bottom:2px">Portfolio Analysis Terminal</div>
-    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#f0f6ff">NGUYENILY X &nbsp;<span style="color:#3b82f6">—</span>&nbsp; PORTFOLIO IQ</div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
+auth_name = st.session_state.get('auth_name', '')
+col_hdr, col_logout = st.columns([5, 1])
+with col_hdr:
+    st.markdown(f"""
+    <div style="display:flex;align-items:flex-end;gap:12px;margin-bottom:20px;
+                padding-bottom:14px;border-bottom:1px solid #111c2a">
+      <div style="width:8px;height:8px;background:#3b82f6;border-radius:50%;
+                  margin-bottom:4px;box-shadow:0 0 12px #3b82f6"></div>
+      <div>
+        <div style="font-size:15px;letter-spacing:4px;color:#3b82f6;
+                    text-transform:uppercase;margin-bottom:2px">Portfolio Analysis Terminal</div>
+        <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#f0f6ff">
+          NGUYENILY X &nbsp;<span style="color:#3b82f6">—</span>&nbsp; PORTFOLIO IQ
+        </div>
+        <div style="font-size:15px;color:#5a7a99;margin-top:4px">
+          Welcome, <span style="color:#93c5fd;font-weight:700">{esc(auth_name)}</span>
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+with col_logout:
+    st.markdown('<div style="padding-top:18px"></div>', unsafe_allow_html=True)
+    if st.button("Sign Out", key="btn_logout", use_container_width=True):
+        # Clear all session state on logout
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.rerun()
 
 # ── Guard: require API key ────────────────────────────────────────────────────
 if not api_key:
