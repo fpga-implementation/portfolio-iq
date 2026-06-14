@@ -1,8 +1,12 @@
 name: Portfolio IQ Daily Briefing
 
 on:
-  schedule:
-    - cron: "15 12 * * 1-5"
+  # schedule:
+  #   # 7:15 AM EST = 12:15 UTC (EST = UTC-5)
+  #   # Runs Mon-Fri only
+  #   - cron: "15 12 * * 1-5"
+
+  # Manual trigger only — uncomment schedule above to re-enable auto-run
   workflow_dispatch:
 
 jobs:
